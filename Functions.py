@@ -35,6 +35,7 @@ class asignacion_causales:
         hoja_mov["CLAVE"] = hoja_mov["CLAVE"].fillna(0).astype(np.int64)
         file = file.merge(hoja_mov[["Cantidad", "CLAVE"]], how='left',
                           left_on='CLAVE', right_on='CLAVE', indicator=True)
+             
         file.loc[np.logical_and(file["Impor"] != 0, file["Novedad Cadena"] == 1, np.logical_and(file["Inventario Cierre"] == 2, file["Ingresos"]
                                 < file.iat[0, 8]-dt.timedelta(7))), "Observaciones"] = f"Ajuste de inventario {file.iat[0,8]} en {file['Cantidad']}"
         return file
@@ -67,10 +68,12 @@ class asignacion_causales:
         data.reset_index(drop=True, inplace=True)
         data_observacion = data[np.logical_and(data["Impor"] != 0, data["Novedad Cadena"] == 1, np.logical_and(
             data["Inventario Cierre"] == 2, data["Ingresos"] < data.iat[0, 8]-dt.timedelta(7)))]
-        data_observacion = self.merge_causal4(data_observacion, file_)
         data = data[np.logical_and(data["Impor"] == 0, data["Novedad Cadena"] != 1, np.logical_and(
             data["Inventario Cierre"] != 2, data["Ingresos"] > data.iat[0, 8]-dt.timedelta(7)))]
-        data = data.append(data_observacion)
+        if len(data_observacion["Impor"])>0:
+            data_observacion = self.merge_causal4(data_observacion, file_)
+            data = data.append(data_observacion)
+        
         file = file.append(data)
         return file
 
