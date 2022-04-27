@@ -9,7 +9,7 @@ import datetime as dt
 
 class asignacion_causales:
     def __init__(self):
-        print("Asignación de causales")
+        print("Asignacion de causales")
 
     def leer_archivo(self, file, sheet: int):
         df_causales = pd.read_excel(file.file.read(), sheet_name=sheet, header=0)
