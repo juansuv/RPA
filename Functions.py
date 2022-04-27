@@ -94,11 +94,10 @@ class asignacion_causales:
         data = file[file["Novedad"] == 41]
         file = file[file["Novedad"] != 41]
         data.reset_index(drop=True, inplace=True)
-        fecha_ = data.iat[0, 8]
-        data = data[np.logical_and(data["Impor"] != 0, data["Novedad Cadena"] == 1, np.logical_and(fecha_ == data["Ingresos"], data["Inventario Cierre"]
+        fecha_ = file["Fecha"][0]
+        data[np.logical_and(data["Impor"] != 0, data["Novedad Cadena"] == 1, np.logical_and(fecha_ == data["Ingresos"], data["Inventario Cierre"]
         < data["Cnt Entrega"],np.logical_and(data["U Pedido"] < fecha_, data["U Pedido"] >= fecha_-dt.timedelta(weeks=4))))]["Novedad Cadena"] = 6
         
-       
         file = file.append(data)
         return file
 
@@ -130,6 +129,6 @@ class asignacion_causales:
         return file
 
     def exportar_excel(self, file):
-        fecha = str(file.iat[0, 8]).split(' ')[0]
+        fecha = str(file["Fecha"][0]).split(' ')[0]
         file.to_excel(
             f'Medición - Análisis Medición - {fecha}.xlsx', sheet_name=f'{fecha}', encoding='utf8', index=False)
