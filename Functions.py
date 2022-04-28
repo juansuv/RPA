@@ -124,7 +124,7 @@ class asignacion_causales:
         file[np.logical_and(file["Impor"] == 0, file["Novedad Cadena"] == 1, np.logical_and(file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=2)), np.logical_and(np.logical_and(
             file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=3)), file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=4))), file["Cantidad_x"] != file["Cantidad_y"])))]["Observaciones"] = "Despacho incompleto"
         file[np.logical_and(file["Impor"] == 0, file["Novedad Cadena"] == 1, np.logical_and(file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=2)), np.logical_and(np.logical_and(file["Fecha doc._x"] <= (
-            fecha_-dt.timedelta(weeks=3)), file["Fecha doc._X"] <= (fecha_-dt.timedelta(weeks=4))), file["Fe.entrega"] > fecha_, file["Cantidad_x"] != file["Cantidad_y"])))]["Observaciones"] = "Despacho tarde"
+            fecha_-dt.timedelta(weeks=3)), file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=4))), file["Fe.entrega"] > fecha_, file["Cantidad_x"] != file["Cantidad_y"])))]["Observaciones"] = "Despacho tarde"
         file = file.append(data)
         return file
 
