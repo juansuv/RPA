@@ -94,7 +94,7 @@ class asignacion_causales:
         data = file[file["Novedad"] == 41]
         file = file[file["Novedad"] != 41]
         data.reset_index(drop=True, inplace=True)
-        fecha_ = file["Fecha"][0]
+        fecha_ = data["Fecha"][0]
         data[np.logical_and(data["Impor"] != 0, data["Novedad Cadena"] == 1, np.logical_and(fecha_ == data["Ingresos"], data["Inventario Cierre"]
         < data["Cnt Entrega"],np.logical_and(data["U Pedido"] < fecha_, data["U Pedido"] >= fecha_-dt.timedelta(weeks=4))))]["Novedad Cadena"] = 6
         
@@ -116,14 +116,14 @@ class asignacion_causales:
     def asignar_causal11(self, file):
         data = file[file["Novedad"] != 41]
         file = file[file["Novedad"] == 41]
-        data.reset_index(drop=True, inplace=True)
-        fecha_ =data["Fecha"][0]
+        file.reset_index(drop=True, inplace=True)
+        fecha_ =file["Fecha"][0]
         
         file[np.logical_and(file["Impor"] == 0, file["Novedad Cadena"] == 1, np.logical_and(file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=2)), file["Fe.entrega"] > fecha_, np.logical_and(np.logical_and(
             file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=3)), file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=4))), file["Fe.entrega"] > fecha_, file["Cantidad_x"] != file["Cantidad_y"])))]["Novedad Cadena"] = 11
         file[np.logical_and(file["Impor"] == 0, file["Novedad Cadena"] == 1, np.logical_and(file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=2)), np.logical_and(np.logical_and(
             file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=3)), file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=4))), file["Cantidad_x"] != file["Cantidad_y"])))]["Observaciones"] = "Despacho incompleto"
-        file[np.logical_and(file["Impor"] == 0, file["Novedad Cadena"] == 1, np.logical_and(file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=2)), np.logical_and(np.logical_and(file["Fecha doc._X"] <= (
+        file[np.logical_and(file["Impor"] == 0, file["Novedad Cadena"] == 1, np.logical_and(file["Fecha doc._x"] <= (fecha_-dt.timedelta(weeks=2)), np.logical_and(np.logical_and(file["Fecha doc._x"] <= (
             fecha_-dt.timedelta(weeks=3)), file["Fecha doc._X"] <= (fecha_-dt.timedelta(weeks=4))), file["Fe.entrega"] > fecha_, file["Cantidad_x"] != file["Cantidad_y"])))]["Observaciones"] = "Despacho tarde"
         file = file.append(data)
         return file
