@@ -10,7 +10,7 @@ from proccess import proccess
 
 
 def fastApp() -> FastAPI:
-    app = FastAPI(title="PA", description="Asignacion de causales automatico")
+    app = FastAPI(title="PA", description="Asignación de causales automático")
     
     origins = [
     "http://localhost.",
