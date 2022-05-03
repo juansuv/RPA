@@ -40,9 +40,9 @@ class asignacion_causales:
                                 < file.iat[0, 8]-dt.timedelta(7)))]["Observaciones"] = f"Ajuste de inventario {file.iat[0,8]} en {file['Cantidad']}"
         return file
 
-    def merge_causal11_8(self, file, nombre_archivo):
-        hojaMov = self.leer_archivo(nombre_archivo, 1)
-        hojaCompras = self.leer_archivo(nombre_archivo, 2)
+    def merge_causal11_8(self, file, hojaMov,hojaCompras):
+        # hojaMov = self.leer_archivo(nombre_archivo, 1)
+        # hojaCompras = self.leer_archivo(nombre_archivo, 2)
         hojaMov["CLAVE"] = hojaMov["CLAVE"].fillna(0).astype(np.int64)
         hojaCompras["Llave"] = hojaCompras["Llave"].fillna(0).astype(np.int64)
         hojaMov.columns = hojaMov.columns.str.strip()
