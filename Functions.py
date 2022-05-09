@@ -19,8 +19,8 @@ class asignacion_causales:
         file["Impor"] = file["Impor"].astype(np.int64)
         file["Novedad Cadena"] = file["Novedad Cadena"].astype(np.int64)
         file["Inventario Cierre"] = file["Inventario Cierre"].astype(np.int64)
-        file[np.logical_and(
-            file["Impor"] != 0, file["Novedad Cadena"] != 1)]["Novedad Cadena"] = 24
+        file[np.logical_or(file["Impor"]!=0,
+            np.logical_and(file["Id_Medicion"] == file["Id_Medicion"], file["Novedad Cadena"] != 1))]["Novedad Cadena"] = 24
         return file
 
     def asignar_causal5(self, file):
