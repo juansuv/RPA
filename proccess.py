@@ -6,6 +6,7 @@ def proccess(archivo_medicion,Moviemientos,Compras):
     #archivo_medicion = causales.leer_archivo(data,0)
     #archivoMedicionHoja2=causales.leer_archivo(data,1)
     df_analisis=causales.asignar_causal24(archivo_medicion)
+    df_analisis.to_excel("Medición-causal24.xlsx")
     df_analisis=causales.asignar_causal4(df_analisis,Moviemientos)
     df_analisis=causales.asignar_causal5(df_analisis)
     df_analisis=causales.asignar_causal6(df_analisis)
