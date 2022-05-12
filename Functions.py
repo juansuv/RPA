@@ -28,8 +28,8 @@ class asignacion_causales:
     def asignar_causal5(self, file):
         data = file[file["Novedad"] == 41]
         data.reset_index(drop=True, inplace=True)
-        data[np.logical_and(data["Novedad Cadena"] == 1, np.logical_or(data["Inventario Cierre"] < 0, np.logical_and(data["Inventario Cierre"] >= 3, np.logical_and(
-            data["Ventas Post"] < data.iat[0, 8], data["Ingresos"] < data.iat[0, 8]))), np.logical_and(data["Inventario Cierre"] == 0, data["Ajustes"] < data.iat[0, 8]-dt.timedelta(7)))]["Novedad Cadena"] = 5
+        data.loc[(np.logical_and(data["Novedad Cadena"] == 1, np.logical_or(data["Inventario Cierre"] < 0, np.logical_and(data["Inventario Cierre"] >= 3, np.logical_and(
+            data["Ventas Post"] < data.iat[0, 8], data["Ingresos"] < data.iat[0, 8]))), np.logical_and(data["Inventario Cierre"] == 0, data["Ajustes"] < data.iat[0, 8]-dt.timedelta(7)))),"Novedad Cadena"] = 5
         
         print("Causal 5",data[np.logical_and(data["Novedad Cadena"] == 1, np.logical_or(data["Inventario Cierre"] < 0, np.logical_and(data["Inventario Cierre"] >= 3, np.logical_and(
             data["Ventas Post"] < data.iat[0, 8], data["Ingresos"] < data.iat[0, 8]))), np.logical_and(data["Inventario Cierre"] == 0, data["Ajustes"] < data.iat[0, 8]-dt.timedelta(7)))])
