@@ -20,7 +20,7 @@ class asignacion_causales:
         file["Novedad Cadena"] = file["Novedad Cadena"].astype(np.int64)
         file["Inventario Cierre"] = file["Inventario Cierre"].astype(np.int64)
         file.loc[(np.logical_or(file["Impor"]!=0,
-            np.logical_and(file["Id_Medicion"] == file["Id_Medicion"], file["Novedad Cadena"] != 1))),"Novedad Cadena"] = 24
+            np.logical_and(file["Id_Medicion"] == file["Id_Medicion"].shift(-1), file["Novedad Cadena"] != 1))),"Novedad Cadena"] = 24
         print("Causal 24",file[np.logical_or(file["Impor"]!=0,
             np.logical_and(file["Id_Medicion"] == file["Id_Medicion"], file["Novedad Cadena"] != 1))])
         return file
@@ -147,4 +147,4 @@ class asignacion_causales:
     def exportar_excel(self, file):
         fecha = str(file["Fecha"][0]).split(' ')[0]
         file.to_excel(
-            f'Medición - Análisis Medición causal24 - {fecha}.xlsx', sheet_name=f'{fecha}', encoding='utf8', index=False)
+            f'Medición - Análisis Medición - {fecha}.xlsx', sheet_name=f'{fecha}', encoding='utf8', index=False)
