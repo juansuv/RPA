@@ -9,7 +9,7 @@ import datetime as dt
 
 class asignacion_causales:
     def __init__(self):
-        print("Asignacion de causales")
+        print("Asignación de causales")
 
     def leer_archivo(self, file, sheet: int):
         df_causales = pd.read_excel(file.file.read(), sheet_name=sheet, header=0)
@@ -20,11 +20,11 @@ class asignacion_causales:
         file["Novedad Cadena"] = file["Novedad Cadena"].astype(np.int64)
         file["Inventario Cierre"] = file["Inventario Cierre"].astype(np.int64)
         file.loc[(np.logical_or(file["Impor"]!=0,
-            np.logical_and(file["Id_Medicion"] == file["Id_Medicion"].shift(-1), file["Novedad Cadena"] != 1))),"Novedad Cadena"] = 24
+            np.logical_and(file["Id_Medicion"] == file["Id_Medicion"].shift(-1), file["Novedad Cadena"] != 1,file["Inventario Cierre"]<=0))),"Novedad Cadena"] = 24
         print("Causal 24",file[np.logical_or(file["Impor"]!=0,
             np.logical_and(file["Id_Medicion"] == file["Id_Medicion"], file["Novedad Cadena"] != 1))])
         return file
-
+    
     def asignar_causal5(self, file):
         data = file[file["Novedad"] == 41]
         data.reset_index(drop=True, inplace=True)

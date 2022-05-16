@@ -1,7 +1,6 @@
 from Functions import asignacion_causales as causal
 
 def proccess(archivo_medicion,Moviemientos,Compras):
-    nombre_archivo="6-04-2022.xlsx"
     causales = causal()
     #archivo_medicion = causales.leer_archivo(data,0)
     #archivoMedicionHoja2=causales.leer_archivo(data,1)
