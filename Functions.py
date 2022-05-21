@@ -19,12 +19,13 @@ class asignacion_causales:
         file["Impor"] = file["Impor"].astype(np.int64)
         file["Novedad Cadena"] = file["Novedad Cadena"].astype(np.int64)
         file["Inventario Cierre"] = file["Inventario Cierre"].astype(np.int64)
-        file.loc[(np.logical_or(file["Impor"]!=0,
-            np.logical_and(file["Id_Medicion"] == file["Id_Medicion"].shift(-1), file["Novedad Cadena"] != 1,file["Inventario Cierre"]<=0))),"Novedad Cadena"] = 24
+        file.loc[(
+            np.logical_and(
+                file["Id_Medicion"] == file["Id_Medicion"].shift(-1),
+                np.logical_or(np.logical_and(np.logical_or(file["Novedad Cadena"] == 1,file["Novedad Cadena"] != 1),file["Inventario Cierre"]<=0),np.logical_or(file["Impor"]==0,file["Impor"]==0)))),"Novedad Cadena"] = 24
         print("Causal 24",file[np.logical_or(file["Impor"]!=0,
             np.logical_and(file["Id_Medicion"] == file["Id_Medicion"], file["Novedad Cadena"] != 1))])
         return file
-    
     def asignar_causal5(self, file):
         data = file[file["Novedad"] == 41]
         data.reset_index(drop=True, inplace=True)
